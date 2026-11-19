@@ -49,6 +49,14 @@ export const Events: CollectionConfig = {
             type: 'upload',
             relationTo: 'media',
             label: 'Filmbilde',
+        },
+
+        {
+            name: 'organizer',
+            type: 'relationship',
+            relationTo: 'users',
+            label: 'Arrangør',
+            required: true,
         }
     ],
 };

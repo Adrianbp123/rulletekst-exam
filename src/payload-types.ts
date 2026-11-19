@@ -260,6 +260,7 @@ export interface Event {
   };
   location: string;
   coverImage?: (number | null) | Media;
+  organizer: number | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -439,6 +440,7 @@ export interface EventsSelect<T extends boolean = true> {
   description?: T;
   location?: T;
   coverImage?: T;
+  organizer?: T;
   updatedAt?: T;
   createdAt?: T;
 }
