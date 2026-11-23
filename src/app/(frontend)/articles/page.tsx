@@ -1,5 +1,6 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
+import ArticleCard from "@/components/articles/ArticleCard";
 
 
 /**
@@ -21,10 +22,7 @@ export default async function ArticlesPage() {
                 <p>Ingen artikler er opprettet enda.</p>
             ) : (
             articles.docs.map((article) => (
-                <article key={article.id}>
-                    <h2>{article.title}</h2>
-                    <p>{article.subtitle}</p>
-                </article>
+                <ArticleCard key={article.id} article={article} />
             ))
         )}
         </main>
