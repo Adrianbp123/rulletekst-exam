@@ -72,6 +72,7 @@ export interface Config {
     articles: Article;
     reviews: Review;
     events: Event;
+    registrations: Registration;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    registrations: RegistrationsSelect<false> | RegistrationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -266,6 +268,19 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "registrations".
+ */
+export interface Registration {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+  event: number | Event;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -307,6 +322,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'registrations';
+        value: number | Registration;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -441,6 +460,18 @@ export interface EventsSelect<T extends boolean = true> {
   location?: T;
   coverImage?: T;
   organizer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "registrations_select".
+ */
+export interface RegistrationsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  age?: T;
+  event?: T;
   updatedAt?: T;
   createdAt?: T;
 }
