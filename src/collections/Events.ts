@@ -56,7 +56,7 @@ export const Events: CollectionConfig = {
             type: 'relationship',
             relationTo: 'users',
             label: 'Arrangør',
-            required: true,
+            required: false,
         }
     ],
 };

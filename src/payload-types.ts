@@ -262,7 +262,7 @@ export interface Event {
   };
   location: string;
   coverImage?: (number | null) | Media;
-  organizer: number | User;
+  organizer?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
