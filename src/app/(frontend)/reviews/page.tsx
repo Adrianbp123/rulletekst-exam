@@ -1,5 +1,6 @@
 import { getPayload } from "payload";
-import config from "@payload-config"
+import config from "@payload-config";
+import ReviewCard from "@/components/reviews/ReviewCard";
 
 /**
  * Henter og viser en oversikt over filmanmeldelsene fra Payload CMS.
@@ -21,7 +22,7 @@ export default async function ReviewsPage() {
             <p>Ingen filmanmeldelser er opprettet enda.</p>
         ) : (
             reviews.docs.map((review) => (
-                <h2 key={review.id}>{review.title}</h2>
+                <ReviewCard key={review.id} review={review} />
             ))
         )}
 
