@@ -1,11 +1,13 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
-import ArticleCard from "@/components/articles/ArticleCard";
+import ArticleGrid from "@/components/articles/ArticleGrid";
 
 
 /**
  * Viser en oversikt over artikler fra Payload CMS.
  * Henter artiklene og viser en melding dersom ingen finnes.
+ * 
+ * @returns JSX for artikkeloversikten.
  */
 export default async function ArticlesPage() {
     const payload = await getPayload({ config });
@@ -21,9 +23,7 @@ export default async function ArticlesPage() {
             {articles.docs.length === 0 ? (
                 <p>Ingen artikler er opprettet enda.</p>
             ) : (
-            articles.docs.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-            ))
+                <ArticleGrid articles={articles.docs} />
         )}
         </main>
     );

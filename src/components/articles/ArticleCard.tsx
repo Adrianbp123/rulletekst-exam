@@ -9,6 +9,9 @@ type ArticleCardProps = {
 
 /**
  * Viser et artikkelkort med informasjon fra Payload CMS.
+ * 
+ * @param props.article Artikkelen som skal vises.
+ * @returns JSX for artikkelkortet.
  */
 export default function ArticleCard({ article }: ArticleCardProps) {
   const coverImage = article.coverImage;
