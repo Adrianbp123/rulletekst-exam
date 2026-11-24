@@ -1,6 +1,8 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { notFound } from "next/navigation";
+import Image from "next/image";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
 type ArticlePageProps = {
     params: Promise<{ id: string }>;
@@ -34,10 +36,33 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         notFound();
     }
 
+    const coverImage = article.coverImage;
+    const author = article.author;
+    const publishedAt = article.publishedAt;
+    const formattedDate = new Date(publishedAt).toLocaleDateString("no");
+    const content = article.content;
+
     return (
         <main className="container">
             <h1>{article.title}</h1>
             <p>{article.subtitle}</p>
+            <div>
+                {typeof author === "object" && author?.name && (
+                    <p>Skrevet av {author.name}</p>
+                )}
+            </div>
+
+            {typeof coverImage === "object" && coverImage?.url && (
+                <Image
+                   src={coverImage.url}
+                   alt={coverImage.alt || article.title}
+                   width={1200}
+                   height={675}
+                />
+            )}
+
+            <RichText data={content} />
+            <time dateTime={publishedAt}>{formattedDate}</time>
         </main>
     )
 }
