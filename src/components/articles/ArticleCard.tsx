@@ -1,7 +1,7 @@
 import type { Article } from "@/payload-types";
 import Image from "next/image";
 import styles from "./ArticleCard.module.css";
-
+import Link from "next/link";
 
 type ArticleCardProps = {
   article: Article;
@@ -18,6 +18,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <article className={styles.card}>
+        <Link href={`/articles/${article.id}`} className={styles.link}>
       {typeof coverImage === "object" && coverImage?.url && (
         <Image
           className={styles.image}
@@ -32,6 +33,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         <h2 className={styles.title}>{article.title}</h2>
         <p className={styles.subtitle}>{article.subtitle}</p>
       </div>
+      </Link>
     </article>
   );
 }
