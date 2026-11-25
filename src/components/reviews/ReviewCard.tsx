@@ -1,6 +1,7 @@
 import type { Review } from "@/payload-types";
 import Image from "next/image";
 import styles from "./ReviewCard.module.css";
+import Link from "next/link";
 
 type ReviewCardProps = {
     review: Review;
@@ -19,6 +20,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
 
     return (
         <article className={styles.card}>
+            <Link href={`/reviews/${review.id}`} className={styles.link}>
             {typeof coverImage === "object" && coverImage?.url && (
                 <Image
                    className={styles.image}
@@ -33,6 +35,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
                 <h2 className={styles.title}>{review.title}</h2>
                 <p className={styles.rating}>Terningkast: {review.rating}/6</p>
             </div>
+            </Link>
         </article>
     )
 }
