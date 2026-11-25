@@ -1,6 +1,7 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
-import ArticleGrid from "@/components/articles/ArticleGrid";
+import ContentGrid from "@/components/shared/ContentGrid";
+import ArticleCard from "@/components/articles/ArticleCard";
 
 
 /**
@@ -23,7 +24,11 @@ export default async function ArticlesPage() {
             {articles.docs.length === 0 ? (
                 <p>Ingen artikler er opprettet enda.</p>
             ) : (
-                <ArticleGrid articles={articles.docs} />
+                <ContentGrid>
+                    {articles.docs.map((article) => (
+                        <ArticleCard key={article.id} article={article} />
+                    ))}
+                </ContentGrid>
         )}
         </main>
     );
