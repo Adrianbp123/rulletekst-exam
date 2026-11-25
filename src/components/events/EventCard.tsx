@@ -1,6 +1,7 @@
 import type { Event } from "@/payload-types";
 import Image from "next/image";
 import styles from "./EventCard.module.css";
+import Link from "next/link";
 
 type EventCardProps = {
     event: Event;
@@ -23,6 +24,7 @@ export default function EventCard({ event }: EventCardProps) {
 
     return (
         <article className={styles.card}>
+            <Link href={`/events/${event.id}`} className={styles.link}>
             {typeof coverImage === "object" && coverImage?.url && (
                 <Image 
                     className={styles.image}
@@ -38,7 +40,7 @@ export default function EventCard({ event }: EventCardProps) {
                 <time dateTime={eventDate}>{formattedDate}</time>
                 <p>{event.location}</p>
             </div>
-
+            </Link>
         </article>
     )
 }
