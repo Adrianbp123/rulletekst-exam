@@ -1,3 +1,5 @@
+import { createRegistration } from "@/app/(frontend)/actions";
+
 type RegistrationFormProps = {
     eventId: number;
     eventTitle: string;
@@ -16,7 +18,7 @@ export default function RegistrationForm({ eventId, eventTitle }: RegistrationFo
         <section>
             <h2>Meld deg på {eventTitle}</h2>
 
-            <form>
+            <form action={createRegistration}>
                 <input type="hidden" name="event" value={eventId} />
 
                 <div>

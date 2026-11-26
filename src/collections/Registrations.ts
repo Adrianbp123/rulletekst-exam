@@ -13,6 +13,10 @@ export const Registrations: CollectionConfig = {
         useAsTitle: 'name',
     },
 
+    access: {
+        create: () => true,
+    },
+
     fields: [
         {
             name: 'name',
