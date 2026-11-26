@@ -3,16 +3,24 @@
 import config from "@payload-config";
 import { getPayload } from "payload";
 
+export type RegistrationState = {
+    success: boolean;
+    message: string;
+};
+
 
 /**
  * Kontrollerer skjemadata og oppretter 
  * påmelding til en bestemt filmkveld i Payload.
  * 
+ * @param previousState Forrige tilstand til påmeldingsskjemaet.
  * @param formData Data fra påmeldingsskjemaet.
  * @returns Promise som fullføres når påmeldingen er lagret.
- * @throws Error dersom skjemadataene er ugyldige.
  */
-export async function createRegistration(formData: FormData) {
+export async function createRegistration(
+    previousState: RegistrationState,
+    formData: FormData
+ ): Promise<RegistrationState> {
     const name = formData.get("name");
     const email = formData.get("email");
     const age = formData.get("age");
@@ -27,7 +35,10 @@ export async function createRegistration(formData: FormData) {
         !email.trim()
 
     ) {
-        throw new Error("Feil format på data");
+        return {
+            success: false,
+            message: "Sjekk at alle feltene er fylt ut riktig.",
+        };    
     }
 
     const ageNumber = Number(age);
@@ -39,9 +50,13 @@ export async function createRegistration(formData: FormData) {
         !Number.isInteger(eventIdNumber) ||
         eventIdNumber < 1
     ) {
-        throw new Error("Ugyldig alder eller filmkveld");
+        return {
+            success: false,
+            message: "Ugyldig alder eller filmkveld.",
+        }
     }
 
+try {
     const payload = await getPayload({ config });
     
     await payload.create({
@@ -54,4 +69,20 @@ export async function createRegistration(formData: FormData) {
         },
         overrideAccess: false,
     });
+
+
+    return {
+        success: true,
+        message: "Du er meldt på!",
+    };
+} catch (error) {
+    console.error("Kunne ikke lagre påmeldingen:", error);
+
+    return {
+        success: false,
+        message: "Kunne ikke registrere påmeldingen. Prøv igjen."
+    }
+}
+
+
 }
