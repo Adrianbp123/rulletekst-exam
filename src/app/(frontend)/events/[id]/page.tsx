@@ -3,6 +3,7 @@ import config from "@payload-config";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { RichText } from "@payloadcms/richtext-lexical/react";
+import RegistrationForm from "@/components/events/RegistrationForm";
 
 type EventPageProps = {
     params: Promise<{ id: string }>;
@@ -68,6 +69,7 @@ export default async function EventPage({ params }: EventPageProps) {
                 />
             )}
             <RichText data={description} />
+            <RegistrationForm eventId={event.id} eventTitle={event.title}/>
         </main>
     )
 }
