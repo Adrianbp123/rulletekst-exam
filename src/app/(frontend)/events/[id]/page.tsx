@@ -69,7 +69,7 @@ export default async function EventPage({ params }: EventPageProps) {
                 />
             )}
             <RichText data={description} />
-            <RegistrationForm eventId={event.id}/>
+            <RegistrationForm eventId={event.id} eventTitle={event.title}/>
         </main>
     )
 }

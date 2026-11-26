@@ -1,18 +1,20 @@
 type RegistrationFormProps = {
     eventId: number;
+    eventTitle: string;
 };
 
 /**
  * Viser et påmeldingsskjema for en bestemt filmkveld.
  * 
  * @param props.eventId ID-en til filmkvelden.
+ * @param props.eventTitle Tittelen på filmkvelden.
  * @returns JSX for påmeldingsskjemaet.
  */
 
-export default function RegistrationForm({ eventId }: RegistrationFormProps) {
+export default function RegistrationForm({ eventId, eventTitle }: RegistrationFormProps) {
     return (
         <section>
-            <h2>Meld deg på filmkvelden</h2>
+            <h2>Meld deg på {eventTitle}</h2>
 
             <form>
                 <input type="hidden" name="event" value={eventId} />
