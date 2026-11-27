@@ -58,12 +58,38 @@ export async function createRegistration(
 
 try {
     const payload = await getPayload({ config });
+
+    const exsistingRegistration = await payload.find({
+    collection: "registrations",
+    where: {
+        and: [
+            {
+                email: {
+                    equals: email.trim().toLowerCase(),
+                },
+            },
+            {
+                event: {
+                    equals: eventIdNumber,
+                },
+            },
+        ],
+    },
+    limit: 1,
+    });
+
+    if (exsistingRegistration.docs.length > 0) {
+        return {
+            success: false,
+            message: "Du er allerede påmeldt denne filmkvelden."
+        }
+    }
     
     await payload.create({
         collection: "registrations",
         data: {
             name: name.trim(),
-            email: email.trim(),
+            email: email.trim().toLowerCase(),
             age: ageNumber,
             event: eventIdNumber,
         },
