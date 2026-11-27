@@ -1,8 +1,9 @@
 "use client";
 
 import { createRegistration } from "@/app/(frontend)/actions";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import type { RegistrationState } from "@/app/(frontend)/actions";
+import { useRegistrationStore } from "@/store/useRegistrationStore";
 
 type RegistrationFormProps = {
     eventId: number;
@@ -16,6 +17,7 @@ const initialState: RegistrationState = {
 
 /**
  * Viser et påmeldingsskjema for en bestemt filmkveld.
+ * Bruker Zustand til å huske påmeldinger.
  * 
  * @param props.eventId ID-en til filmkvelden.
  * @param props.eventTitle Tittelen på filmkvelden.
@@ -28,10 +30,20 @@ export default function RegistrationForm({ eventId, eventTitle }: RegistrationFo
         initialState
     );
 
-    if (state.success) {
+    const registeredEvents = useRegistrationStore((state) => state.registeredEvents);
+    const addRegistration = useRegistrationStore((state) => state.addRegistration);
+    const isRegistered = registeredEvents.includes(eventId);
+
+    useEffect(() => {
+        if (state.success) {
+            addRegistration(eventId);
+        }
+    }, [state.success, eventId, addRegistration]);
+
+    if (state.success || isRegistered) {
         return (
             <section>
-                <h2>{state.message}</h2>
+                <h2>Du er meldt på!</h2>
                 <p>Vi gleder oss til å se deg på filmkvelden!</p>
             </section>
         );
